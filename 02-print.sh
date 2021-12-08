@@ -9,4 +9,4 @@ echo "Hello\nWorld";
 
 
 echo -e "\e[31m Hello in Red Color";
-
+wc -l /etc/passwd;
