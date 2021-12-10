@@ -9,7 +9,7 @@ rm -f ${LOG_FILE}
 STAT_CHECK() {
   #$1 is argument ,if it is -ne 0(success) so its failed.ref:D61-2021-12-10-SESSION-16 @24:00
   if [ $1 -ne 0 ]; then
-    echo -e "\e[1;31m${2} - FAILED\e[0m"
+    echo -e "\e[1;31m${2} - FAILED\e[0m"  #${2} is second arg. which is Nginx Installation.
     exit 1
   else
     echo -e "\e[1;32m${2} - SUCCESS\e[0m"
