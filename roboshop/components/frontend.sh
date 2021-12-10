@@ -7,7 +7,7 @@ rm -f ${LOG_FILE}
 
 #To check Installatio is success or fail.
 STAT_CHECK() {
-  #if Exit status 1(fail) -ne 0(success) so its failed.
+  #$1 is argument ,if it is -ne 0(success) so its failed.
   if [ $1 -ne 0 ]; then
     echo -e "\e[1;31m${2} - FAILED\e[0m"
     exit 1
@@ -19,7 +19,7 @@ STAT_CHECK() {
 #install Nginx
 yum install nginx -y
 #$? status of last command executed.
-STAT_CHECK $? "Nginx Installation"
+STAT_CHECK $? "Nginx Installation" #it will go chk with STAT_CHECk
 
 #Get frontend code and extract.
 curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zi"
