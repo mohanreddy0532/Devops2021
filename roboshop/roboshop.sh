@@ -11,7 +11,7 @@
  COMPONENT=$1
  # -z is compoent is missing
  if [ -z "$COMPONENT" ]; then
-   echo -e "\e[1,31mComponent Input is Missing\e[0m"
+   echo -e "\e[1;31mComponent Input is Missing\e[0m"
    exit
  fi
  # -e if file is exits
