@@ -5,9 +5,9 @@ LOG_FILE=/tmp/roboshop.log
 #Remove Log is already exits
 rm -f ${LOG_FILE}
 
-#To check Installatio is success or fail.
+#To check Installation is success or fail.
 STAT_CHECK() {
-  #$1 is argument ,if it is -ne 0(success) so its failed.
+  #$1 is argument ,if it is -ne 0(success) so its failed.ref:D61-2021-12-10-SESSION-16 @24:00
   if [ $1 -ne 0 ]; then
     echo -e "\e[1;31m${2} - FAILED\e[0m"
     exit 1
