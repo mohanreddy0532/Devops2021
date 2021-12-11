@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#old Front End useful
 #To hide log after installation.
 LOG_FILE=/tmp/roboshop.log
 #Remove Log is already exits
