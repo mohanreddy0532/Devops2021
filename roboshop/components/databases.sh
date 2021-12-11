@@ -62,4 +62,4 @@ if [ $? -ne 0 ]; then
 fi
 
 rabbitmqctl set_user_tags roboshop administrator  &>>${LOG_FILE} && rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"  &>>${LOG_FILE}
-STAT_CHECK $? "Configure APp User Permissions"
+STAT_CHECK $? "Configure APp User Permissions "
