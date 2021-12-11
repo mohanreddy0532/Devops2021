@@ -17,7 +17,7 @@ STAT_CHECK() {
 }
 
 #install Nginx
-yum install nginx -y
+yum install nginx -y &>>${LOG_FILE}
 #$? status of last command executed.
 STAT_CHECK $? "Nginx Installation" #it will go chk with STAT_CHECk
 

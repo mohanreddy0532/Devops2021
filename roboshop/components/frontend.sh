@@ -1,39 +1,24 @@
 #!/bin/bash
 
-#To hide log after installation.
-LOG_FILE=/tmp/roboshop.log
-#Remove Log is already exits
-rm -f ${LOG_FILE}
+# source is nothing but import , like export command
+source components/common.sh
 
-#To check Installation is success or fail.
-STAT_CHECK() {
-  #$1 is argument ,if it is -ne 0(success) so its failed.ref:D61-2021-12-10-SESSION-16 @24:00
-  if [ $1 -ne 0 ]; then
-    echo -e "\e[1;31m${2} - FAILED\e[0m"  #${2} is second arg. which is Nginx Installation.
-    exit 1
-  else
-    echo -e "\e[1;32m${2} - SUCCESS\e[0m"
-  fi
-}
+#To Set up out put lenngth waste one.
+MAX_LENGTH=$(cat ${0}  | grep -v cat | grep STAT_CHECK | awk -F '"' '{print $2}'  | awk '{ print length }'  | sort  | tail -1)
 
-#install Nginx
-yum install nginx -y
-#$? status of last command executed.
-STAT_CHECK $? "Nginx Installation" #it will go chk with STAT_CHECk
+yum install nginx -y &>>${LOG_FILE}
+STAT_CHECK $? "Nginx Installation"
 
-#Get frontend code and extract.
-curl -f -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zi"
+DOWNLOAD frontend
 
-cd /usr/share/nginx/html
-rm -rf *
-unzip /tmp/frontend.zip
-mv frontend-main/* .
-mv static/* .
-rm -rf frontend-master static README.md
+rm -rf /usr/share/nginx/html/*
+STAT_CHECK $? "Remove old HTML Pages"
 
-#To Start nginx on system reboot
-mv localhost.conf /etc/nginx/default.d/roboshop.conf
+cd  /tmp/frontend-main/static/ && cp -r * /usr/share/nginx/html/
+STAT_CHECK $? "Copying Frontend Content"
 
-#To start Nginx and enable service
-systemctl enable nginx
-systemctl start nginx
+cp /tmp/frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
+STAT_CHECK $? "Update Nginx Config File"
+
+systemctl enable nginx &>>${LOG_FILE} && systemctl restart nginx &>>${LOG_FILE}
+STAT_CHECK $? "Restart Nginx"
