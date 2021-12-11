@@ -1,7 +1,7 @@
 LOG_FILE=/tmp/roboshop.log
 rm -f ${LOG_FILE}
 
-#To set the Length
+#To set the Length of out put
 STAT_CHECK() {
   SPACE=""
   LENGTH=$(echo $2 |awk '{ print length }' )
@@ -10,6 +10,7 @@ STAT_CHECK() {
     SPACE=$(echo -n "${SPACE} ")
     LEFT=$((${LEFT}-1))
   done
+  #To check compoenet * useful
   if [ $1 -ne 0 ]; then
     echo -e "\e[1m${2}${SPACE} - \e[1;31mFAILED\e[0m"
     exit 1
