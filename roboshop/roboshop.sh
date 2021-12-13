@@ -9,13 +9,13 @@
  fi
 
  export COMPONENT=$1
- # -z is compoent is missing
+ # -z is component is missing
  if [ -z "$COMPONENT" ]; then
    echo -e "\e[1;31mComponent Input is Missing\e[0m"
    exit
  fi
  # -e if file is exits
- if [ ! -e components/${COMPONENTS}.sh ]; then
+ if [ ! -e component/${COMPONENT}.sh ]; then
    echo -e "\e[1;31mGiven component script does not exits\e[0m"
    exit
  fi
