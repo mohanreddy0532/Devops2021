@@ -5,16 +5,16 @@
 LOG_FILE=/tmp/roboshop.log
 rm -rf ${LOG_FILE}
 
-MAX_LENTH=$(cat components/*.sh) | grep -v -w cat | grep STAT_CHECK | awk -F '"' '{print $2}' | awk '{print length' | sort | tail -1)
+MAX_LEGNTH=$(cat components/*.sh) | grep -v -w cat | grep STAT_CHECK | awk -F '"' '{print $2}' | awk '{print length' | sort | tail -1)
 
-if [$MAX_LENTH -lt 24]; then
-  MAX_LENTH=24
+if [$MAX_LENGTH -lt 24]; then
+  MAX_LENGTH=24
 fi
 
 STAT_CHECK() {
   SPACE=""
   LENGTH=$(echo $2 |awk '{print length }')
-  LEFT=$((MAX_LENTH}-${LENGTH}))
+  LEFT=$((MAX_LENGTH}-${LENGTH}))
   while [ $LEFT -gt 0]; do
     SPACE=$(echo -n "${SPACE} ")
     LEFT=$((${LEFT} -1))
@@ -65,4 +65,4 @@ NODEJS() {
 
     systemctl daemon-reload &>>${LOG_FILE} && systemctl start ${component} &>>${LOG_FILE} && systemctl enable ${component} &>>${LOG_FILE}
     STAT_CHECK $? "Start ${component} Service"
-  }       
+  }
