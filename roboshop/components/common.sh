@@ -1,7 +1,5 @@
 #!/bin/bash
-
 #Common files for Roboshop Application.
-
 LOG_FILE=/tmp/roboshop.log
 rm -rf ${LOG_FILE}
 
