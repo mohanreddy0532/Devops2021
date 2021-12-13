@@ -3,13 +3,7 @@
 LOG_FILE=/tmp/roboshop.log
 rm -rf ${LOG_FILE}
 
-#MAX_LEGNTH=$(cat components/*.sh | grep -v -w cat | grep STAT_CHECK | awk -F '"' '{print $2}' | awk '{print length }' | sort | tail -1)
-#
-#if [ $MAX_LENGTH -lt 24 ];then
-#  MAX_LENGTH=24
-#fi
-
-MAX_LENGTH=$(cat components/*.sh  | grep -v -w cat | grep STAT_CHECK | awk -F '"' '{print $2}'  | awk '{ print length }'  | sort  | tail -1)
+MAX_LENGTH=$(cat components/*.sh | grep -v -w cat | grep STAT_CHECK | awk -F '"' '{print $2}' | awk '{print length }' | sort | tail -1)
 
 if [ $MAX_LENGTH -lt 24 ];then
   MAX_LENGTH=24
