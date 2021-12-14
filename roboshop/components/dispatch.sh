@@ -1,1 +1,4 @@
-echo Dispatch Setup
+#!/bin/bash
+
+source components/common.sh
+GOLANG dispatch
