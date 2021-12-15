@@ -1,4 +1,4 @@
-#All Roboshop DBs added MondoDB,Redis,RabbitMQ,MySQL
+#All Roboshop DBs added-->MondoDB,Redis,RabbitMQ,MySQL
 #!/bin/bash
 
 source components/common.sh
