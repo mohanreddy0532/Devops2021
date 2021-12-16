@@ -28,7 +28,7 @@ STAT_CHECK() {
 yum install nginx -y
 STAT_CHECK $? "Nginx Install Failed"
 
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zi"
+curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip"
 STAT_CHECK $? "Download frontend Failed"
 
 cd /usr/share/nginx/html
