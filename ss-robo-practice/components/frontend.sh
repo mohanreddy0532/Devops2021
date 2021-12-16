@@ -31,17 +31,17 @@ STAT_CHECK() {
 }
 
 yum install nginx -y &>>${LOG_FILE}
-STAT_CHECK $? "Nginx Install"
+STAT_CHECK  $?  "Nginx Install"
 
 curl -f -s -L -o /tmp/frontend.zip  "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>${LOG_FILE}
-STAT_CHECK $? "Download frontend"
+STAT_CHECK  $?  "Download frontend"
 
 cd /usr/share/nginx/html
 rm -rf *
-unzip -o /tmp/frontend.zip
+unzip /tmp/frontend.zip
 mv frontend-main/* .
 mv static/* .
 rm -rf frontend-master static README.md
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
-
+systemctl enable nginx
 systemctl restart nginx
