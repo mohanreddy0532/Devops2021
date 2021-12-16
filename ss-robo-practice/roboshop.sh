@@ -12,7 +12,7 @@ if [ -z "$COMPONENT" ]; then
   exit
 fi
 
-if [ -e component/${COMPONENT}.sh ]; then
+if [ ! -e component/${COMPONENT}.sh ]; then
   echo -e "\e[1;31mGiven component doesn't exist\e[0m"
   exit
 fi
