@@ -19,9 +19,6 @@ source components/common.sh
 #
 ## curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 #
-## cd /tmp
-## unzip mongodb.zip
-## cd mongodb-main
 ## mongo < catalogue.js
 ## mongo < users.js
 #
@@ -40,3 +37,7 @@ systemctl enable mongod &>>${LOG_FILE} && systemctl start mongod &>>${LOG_FILE}
 STAT_CHECK $? "Enable and Start MongoD"
 
 DOWNLOAD mongodb
+
+cd /tmp/mongodb-main
+mongo < catalogue.js &>>${LOG_FILE} && mongo < users.js &>>${LOG_FILE}
+STAT_CHECK $? "Load Schema"

@@ -12,9 +12,6 @@ DOWNLOAD frontend
 rm -rf  /usr/share/nginx/html/*
 STAT_CHECK $? "Download Frontend"
 
-cd /tmp && unzip -o /tmp/frontend.zip  &>>${LOG_FILE}
-STAT_CHECK $? "Extracting FrontEnd contenet"
-
 cd /tmp/frontend-main/static && cp -r * /usr/share/nginx/html/
 STAT_CHECK $? "Copying FrontEnd content"
 
