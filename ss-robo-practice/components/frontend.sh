@@ -18,7 +18,6 @@
 
 # systemctl restart nginx
 
-echo Frontend setup
 yum install nginx -
 if [ $? -ne 0 ]; then
   echo "Nginx Install Failed"
