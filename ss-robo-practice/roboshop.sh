@@ -6,7 +6,7 @@ if [ ${USER_UID} -ne 0 ]; then
   exit
 fi
 
-COMPONENT=$1
+export COMPONENT=$1
 if [ -z "$COMPONENT" ]; then
   echo -e "\e[1;31mComponent Input \e[5;31mMissing\e[0m"
   exit
