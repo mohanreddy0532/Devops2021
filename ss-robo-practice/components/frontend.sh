@@ -19,10 +19,10 @@
 # systemctl restart nginx
 
 STAT_CHECK() {
-if [ $? -ne 0 ]; then
-  echo "$2"
-  exit 1
-fi
+ if [ $1 -ne 0 ]; then
+   echo "$2"
+   exit 1
+ fi
 }
 
 yum install nginx -y
