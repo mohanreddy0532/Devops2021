@@ -38,7 +38,7 @@ STAT_CHECK  $?  "Download frontend"
 
 cd /usr/share/nginx/html
 rm -rf *
-unzip /tmp/frontend.zip
+unzip -o /tmp/frontend.zip  &>>${LOG_FILE}
 mv frontend-main/* .
 mv static/* .
 rm -rf frontend-master static README.md
