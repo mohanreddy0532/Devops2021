@@ -1,7 +1,15 @@
 #Sample YML File.
-- name: Demo on simple playbook
+#- name: Demo on simple playbook
+#  hosts: all
+#  tasks:
+#    - name: Task1
+#      ansible.builtin.debug:
+#        msg: Hello from Playbook Play
+#Sample YML File
+- name: Demo on Simple playbook
   hosts: all
   tasks:
     - name: Task1
       ansible.builtin.debug:
-        msg: Hello from Playbook Play
+        msg: Hello from PlayBook Play
+
