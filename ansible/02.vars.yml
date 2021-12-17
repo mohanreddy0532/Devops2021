@@ -3,7 +3,7 @@
   tasks:
     - name: ls command
       ansible.builtin.shell: ls
-        register: out
+      register: out
 
     - name: Print output
       ansible.builtin.debug:
