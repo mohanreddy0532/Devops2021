@@ -1,0 +1,25 @@
+#for i in frontend mongodb redis rabbitmq mysql catalogue user shipping payment dispatch
+#do
+
+[FRONTEND]
+frontend.roboshop.internal
+[MONGODB]
+mongodb.roboshop.internal
+[REDIS]
+redis.roboshop.internal
+[RABBITMQ]
+rabbitmq.roboshop.internal
+[MYSQL]
+mysql.roboshop.internal
+[CATALOGUE]
+catalogue.roboshop.internal
+[USER]
+user.roboshop.internal
+[CART]
+cart.roboshop.internal
+[SHIPPING]
+shipping.roboshop.internal
+[PAYMENT]
+payment.roboshop.internal
+[DISPATCH]
+dispatch.roboshop.internal
