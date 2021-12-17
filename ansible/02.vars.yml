@@ -10,6 +10,6 @@
         msg: "{{out.stdout}}"
 
     - name: Declare a variable
-        ansible.builtin.set_fact:
+      ansible.builtin.set_fact:
           CMD_OUTPUT: "{{out.stdout}}"
 
