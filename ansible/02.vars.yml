@@ -1,15 +1,73 @@
+#- name: Play for Variables
+#  hosts: all
+#  vars:
+#    URL: play.example.com
+#    a: 100000000
+#  tasks:
+#    - name: Print a Value
+#      ansible.builtin.debug:
+#        msg: URL - {{URL}}
+#
+## Since it is a play level variable the scope is completely on all tasks.
+#
+#- name: Play for Variable files
+#  hosts: all
+#  vars_files:
+#    - sample-vars.yml
+#  tasks:
+#    - name: Print URL
+#      ansible.builtin.debug:
+#        msg: URL - {{URL}}
+#
+#- name: Play for Tasks Level Variables
+#  hosts: all
+#  tasks:
+#    - name: Print URL1
+#      ansible.builtin.debug:
+#        msg: URL - {{URL}}
+#      vars:
+#        URL: tasks.example.com
+#    - name: Print URL2
+#      ansible.builtin.debug:
+#        msg: URL - {{URL}}
+#      vars:
+#        URL: second-task.example.com
+#
+### Key take away : Tasks level variable , the scope is only for that task.
+#
+#- name: Play for Inventory Variable
+#  hosts: all
+#  tasks:
+#    - name: Print URL
+#      ansible.builtin.debug:
+#        msg: URL - {{URL}}
+#
+#- name: Play for COmmand line Variables
+#  hosts: all
+#  tasks:
+#    - name: Print URL
+#      ansible.builtin.debug:
+#        msg: URL - {{URL}}
+#
+#- name: Variable from facts
+#  hosts: all
+#  tasks:
+#    - name: Print fact
+#      ansible.builtin.debug:
+#        msg: Hostname - {{ansible_fqdn}}
+#
+
 - name: Register variables
   hosts: all
   tasks:
-    - name: ls command
+    - name: ls Command
       ansible.builtin.shell: ls
       register: out
 
-    - name: Print output
+    - name: Print ouptut
       ansible.builtin.debug:
         msg: "{{out.stdout}}"
 
-    - name: Declare a variable
+    - name: Declare a varibale
       ansible.builtin.set_fact:
-          CMD_OUTPUT: "{{out.stdout}}"
-
+        CMD_OUTPUT: "{{out.stdout}}"
