@@ -41,9 +41,6 @@
 #  TERMINATE_INSTANCE
 #fi
 
-aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters 'Name=tag-value,Values=MYTAG' --output text |
-grep stopped |
-awk '{print $2}' |
-while read line;
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters 'Name=tag-value,Values=MYTAG' --output text | grep -E 'running|stopped' | awk '{print $2}' | while read line;
 do aws ec2 terminate-instances --instance-ids $line
 done
