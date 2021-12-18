@@ -35,8 +35,8 @@ sleep 5
 if [ "$COMPONENT" == "all" ]; then
   for comp in frontend mongodb catalogue ; do
     COMPONENT=$comp
-    CREATE_INSTANCE
+    TERMINATE_INSTANCE
   done
 else
-  CREATE_INSTANCE
+  TERMINATE_INSTANCE
 fi
