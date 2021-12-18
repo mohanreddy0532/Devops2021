@@ -41,7 +41,7 @@ IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONE
 #  # Update the DNS record
 #  sed -e "s/IPADDRESS/${IPADDRESS}/" -e "s/COMPONENT/${COMPONENT}/" record.json >/tmp/record.json
 #  aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
-#}
+}
 #
 #if [ "$COMPONENT" == "all" ]; then
 #  for comp in frontend mongodb catalogue ; do
