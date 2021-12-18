@@ -10,9 +10,9 @@ fi
 
 COMPONENT=$1
 
-
 TEMP_ID="lt-0371737b9b36fe546"
 TEMP_VER=1
+ZONE_ID=Z079880618UTU9V8KYVX0
 
 #Below is with Spot-Instance and Tag
 #aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=frontend}]" "ResourceType=instance,Tags=[{Key=Name,Value=frontend}]" | jq
@@ -38,16 +38,16 @@ else
 
 IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq .Reservations[].Instances[].PrivateIpAddress | sed 's/"//g' | grep -v null)
 
-#  # Update the DNS record
-#  sed -e "s/IPADDRESS/${IPADDRESS}/" -e "s/COMPONENT/${COMPONENT}/" record.json >/tmp/record.json
-#  aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
+  # Update the DNS record
+  sed -e "s/IPADDRESS/${IPADDRESS}/" -e "s/COMPONENT/${COMPONENT}/" record.json >/tmp/record.json
+  aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json | jq
 }
-#
-#if [ "$COMPONENT" == "all" ]; then
-#  for comp in frontend mongodb catalogue ; do
-#    COMPONENT=$comp
-#    CREATE_INSTANCE
-#  done
-#else
-#  CREATE_INSTANCE
-#fi
+
+if [ "$COMPONENT" == "all" ]; then
+  for comp in frontend mongodb catalogue ; do
+    COMPONENT=$comp
+    CREATE_INSTANCE
+  done
+else
+  CREATE_INSTANCE
+fi
