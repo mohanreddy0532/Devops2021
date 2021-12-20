@@ -1,6 +1,5 @@
 #for i in frontend mongodb redis rabbitmq mysql catalogue user shipping payment dispatch
 #do
-
 [FRONTEND]
 frontend.roboshop.internal
 [MONGODB]
