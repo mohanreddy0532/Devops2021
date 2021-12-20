@@ -3,3 +3,9 @@
   become: yes
   roles:
     - frontend
+
+- name: MOngoDB setup
+  hosts: MONGODB
+  become: yes
+  roles:
+    - mongodb
