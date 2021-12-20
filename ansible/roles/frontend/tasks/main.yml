@@ -2,3 +2,19 @@
   ansible.builtin.yum:
     name: nginx
     state: installed
+
+- name: Download and Unzip the frontend contenet
+  ansible.builtin.unarchive:
+    src:
+    dest: /tmp
+    remote_src: yes
+
+- name: Remove old HTML Web Pages
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: Copy the HTML files
+  ansile.builtin.copy:
+    src: /tmp/frontend-main/static/
+    dest: /usr/share/nginx/html/

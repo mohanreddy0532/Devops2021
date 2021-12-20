@@ -1,4 +1,5 @@
 - name: Frontend setup
   hosts: FRONTEND
-  tasks:
+  become: yes
+  roles:
     - frontend
