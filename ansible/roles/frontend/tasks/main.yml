@@ -19,3 +19,14 @@
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html/
     remote_src: yes
+
+- name: Copy roboshop config. file
+  ansible.builtin.copy:
+    src: roboshop.conf
+    dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Start Nginx
+    ansible.builtin.systemd:
+      name: nginx
+      state: restarted
+      enableed: yes
