@@ -15,7 +15,7 @@
     state: absent
 
 - name: Copy the HTML files
-  ansile.builtin.copy:
+  ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html/
     remote_src: yes
