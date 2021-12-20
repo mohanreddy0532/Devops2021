@@ -1,11 +1,40 @@
 - name: Frontend setup
   hosts: FRONTEND
   become: yes
+  tags: FRONTEND
   roles:
     - frontend
 
-- name: MOngoDB setup
+- name: MongoDB setup
   hosts: MONGODB
   become: yes
+  tags: MONGODB
   roles:
     - mongodb
+- name: Catalogue setup
+  hosts: CATALOGUE
+  become: yes
+  tags: CATALOGUE
+  roles:
+    - catalogue
+
+- name: Redis setup
+  hosts: REDIS
+  become: yes
+  tags: REDIS
+  roles:
+    - redis
+
+- name: User setup
+  hosts: USER
+  become: yes
+  tags: USER
+  roles:
+    - user
+
+- name: Cart setup
+  hosts: CART
+  become: yes
+  tags: CART
+  roles:
+    - cart
