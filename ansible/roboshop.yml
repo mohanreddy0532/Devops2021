@@ -38,3 +38,17 @@
   tags: CART
   roles:
     - cart
+
+- name: MySQL setup
+  hosts: MYSQL
+  become: yes
+  tags: MYSQL
+  roles:
+    - mysql
+
+- name: Shipping setup
+  hosts: SHIPPING
+  become: yes
+  tags: SHIPPING
+  roles:
+    - shipping
