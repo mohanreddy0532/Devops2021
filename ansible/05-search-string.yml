@@ -1,0 +1,15 @@
+---
+- name: Search a string with lineinfile
+  hosts: localhost
+  tasks:
+    - name: "Search for a string"
+      lineinfile:
+        path: /tmp/1.txt
+        line: "new"
+        state: present
+      check_mode: mode
+      register: presence
+
+    - name: "print output"
+      debug:
+        msg: "{{presence}}"
