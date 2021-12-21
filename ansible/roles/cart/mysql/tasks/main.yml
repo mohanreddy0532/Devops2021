@@ -1,0 +1,87 @@
+
+#    # curl -s -L -o /tmp/mysql.zip "https://github.com/roboshop-devops-project/mysql/archive/main.zip"
+#    Load the schema for Services.
+#
+#    # cd /tmp
+#    # unzip mysql.zip
+#    # cd mysql-main
+#  # mysql -u root -pRoboShop@1 <shipping.sql
+
+- name: Copy MySQL repo
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+
+- name: Install MySQL server & Ansible MySQL Modules
+  ansible.builtin.yum:
+    name:
+      - mysql-community-server
+      - MySQL-python
+    state: installed
+
+- name: Start MySQL service
+  ansible.builtin.systemd:
+    name: mysqld
+    state: started
+    enabled: true
+
+- name: Check if new root password is working or not
+  community.mysql.mysql_query:
+    query: "show databases"
+    login_user: root
+    login_password: "{{MYSQL_ROOT_PASSWORD}}"
+  register: out
+  ignore_errors: true
+
+- name: Change the default password
+  when: out.failed | bool
+  block:
+    - name: Grab default password
+      ansible.builtin.shell: grep 'temporary password' /var/log/mysqld.log  | awk '{print $NF}'
+      register: mysql_default_password
+
+    - name: Copy SQL Script for Password reset
+      ansible.builtin.template:
+        src: root-pass-reset.sql
+        dest: /tmp/root-pass-reset.sql
+
+    - name: Change the Password
+      ansible.builtin.shell: mysql --connect-expired-password -uroot -p"{{mysql_default_password.stdout}}" </tmp/root-pass-reset.sql
+
+## THis we will discuss after a topic called as loop in ansible
+#- name: Check if validate password plugin is there or not
+#  community.mysql.mysql_query:
+#    query: "show plugins"
+#    login_user: root
+#    login_password: "{{MYSQL_ROOT_PASSWORD}}"
+#  register: out
+#
+#- name: Print
+#  debug:
+#    msg: "{{out}}"
+
+- name: Check validate password plugin
+  ansible.builtin.shell: echo 'show plugins;' | mysql -uroot -p"{{MYSQL_ROOT_PASSWORD}}" | grep validate_password
+  ignore_errors: true
+  register: out
+
+- name: Uninstall validate password plugin
+  community.mysql.mysql_query:
+    query: "uninstall plugin validate_password"
+    login_user: root
+    login_password: "{{MYSQL_ROOT_PASSWORD}}"
+  when: out.rc | int == 0
+  ignore_errors: true
+
+- name: Download MySQL Schema files
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: download
+
+- name: Load Schema
+  community.mysql.mysql_db:
+    state: import
+    name: all
+    target: /tmp/mysql-main/shipping.sql
+    login_user: root
+    login_password: "{{MYSQL_ROOT_PASSWORD}}"
