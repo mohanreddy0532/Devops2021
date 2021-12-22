@@ -52,3 +52,24 @@
   tags: SHIPPING
   roles:
     - shipping
+
+- name: RabbitMQ setup
+  hosts: RABBITMQ
+  become: yes
+  tags: RABBITMQ
+  roles:
+    - rabbitmq
+
+- name: Payment setup
+  hosts: PAYMENT
+  become: yes
+  tags: PAYMENT
+  roles:
+    - payment
+
+- name: Dispatch setup
+  hosts: DISPATCH
+  become: yes
+  tags: DISPATCH
+  roles:
+    - dispatch
