@@ -9,10 +9,16 @@ if [ -z "$1" ]; then
 fi
 
 COMPONENT=$1
+ENV=$1
+
+if [ ! -z "$ENV" ]; then
+  ENV="-${ENV}"
+fi
 
 TEMP_ID="lt-0371737b9b36fe546"
 TEMP_VER=1
 ZONE_ID=Z079880618UTU9V8KYVX0
+
 
 #Below is with Spot-Instance and Tag
 #aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=frontend}]" "ResourceType=instance,Tags=[{Key=Name,Value=frontend}]" | jq
@@ -41,10 +47,11 @@ aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-bat
 }
 
 if [ "$COMPONENT" == "all" ]; then
-  for comp in frontend mongodb catalogue ; do
-    COMPONENT=$comp
+  for comp in frontend mongodb catalogue redis user cart mysql shipping rabbitmq payment dispatch ; do
+    COMPONENT=$comp$ENV
     CREATE_INSTANCE
   done
 else
+  COMPONENT=$COMPONENT$ENV
   CREATE_INSTANCE
 fi
