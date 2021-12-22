@@ -1,0 +1,19 @@
+- name: Play1
+  hosts: all
+  strategy: free
+  tasks:
+    - name: Sleep for 10 s
+      shell: sleep 5
+      async: 45
+      poll: 0
+    - name: Sleep for another 10 s
+      shell: sleep 5
+      async: 45
+      poll: 0
+
+#- name: Play2
+#  hosts: all
+#  #strategy: free
+#  tasks:
+#    - name: Sleep for 10 s
+#      shell: sleep 10
