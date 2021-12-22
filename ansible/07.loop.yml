@@ -1,0 +1,20 @@
+- name: Demo on loop
+  hosts: localhost
+  vars:
+    FRUITS: [ "banana", "apple", "orange"]
+    FRUIT_AND_COST:
+      - name: banana
+        cost: 100$
+      - name: apple
+        cost: 200$
+      - name: orange
+        cost: 200$
+  tasks:
+    - name: Print fruit name
+      loop: "{{FRUITS}}"
+      debug:
+        msg: "{{item}}"
+    - name: Print fruit name and cost
+      debug:
+        msg: "Fruit Name = {{item.name}} Cost = {{item.cost}}"
+      loop: "{{FRUIT_AND_COST}}"
