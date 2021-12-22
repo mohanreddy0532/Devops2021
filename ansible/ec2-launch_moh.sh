@@ -4,12 +4,12 @@
 #2. Take that Instance IP & register in DNS
 
 if [ -z "$1" ]; then
-  echo -e "\e[1;31mInput is missing\e[0m"
+  echo -e "\e[1;31mInput is Missing\e[0m"
   exit 1
 fi
 
 COMPONENT=$1
-ENV=$1
+ENV=$2
 
 if [ ! -z "$ENV" ]; then
   ENV="-${ENV}"
@@ -37,7 +37,7 @@ fi
 #For Spot Instance
 #aws ec2 run-instances --launch-template LaunchTemplateId=${TEMP_ID},Version=${TEMP_VER} --tag-specifications "ResourceType=spot-instances-request,Tags=[{Key=Name,Value=${COMPONENT}}]" "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]" | jq
 
-sleep 5
+sleep 10
 
 IPADDRESS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=${COMPONENT}" | jq .Reservations[].Instances[].PrivateIpAddress | sed 's/"//g' | grep -v null)
 
