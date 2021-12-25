@@ -3,30 +3,30 @@
     name: nginx
     state: installed
 
-- name: Download and Unzip the frontend contenet
-  ansible.builtin.unarchive:
-    src: https://github.com/roboshop-devops-project/frontend/archive/main.zip
-    dest: /tmp
-    remote_src: yes
+- name: Download and UnZip the Frontend Content
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: download
 
-- name: Remove old HTML Web Pages
+- name: Remove Old Html Web Pages
   ansible.builtin.file:
     path: /usr/share/nginx/html
     state: absent
 
-- name: Copy the HTML files
+- name: Copy the HTML Files
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html/
     remote_src: yes
 
-- name: Copy roboshop reverse proxy config. file
-  ansible.builtin.copy:
+- name: Copy roboshop reverse proxy configuration
+  ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
+  notify: Restart Nginx
 
 - name: Start Nginx
   ansible.builtin.systemd:
-      name: nginx
-      state: restarted
-      enableed: yes
+    name: nginx
+    state: started
+    enabled: yes
