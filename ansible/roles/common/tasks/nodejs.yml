@@ -6,40 +6,14 @@
       - gcc-c++
     state: installed
 
-- name: Add Application User
-  ansible.builtin.user:
-    name: roboshop
-
-- name: Download and UnZip the {{COMPONENT}} Content
-  ansible.builtin.import_role:
-    name: common
-    tasks_from: download
-
-- name: Remove Old App Content
-  ansible.builtin.file:
-    path: /home/roboshop/{{COMPONENT}}
-    state: absent
-
-- name: Copy App Content
-  ansible.builtin.copy:
-    src: /tmp/{{COMPONENT}}-main/
-    dest: /home/roboshop/{{COMPONENT}}/
-    remote_src: yes
-  become_user: roboshop
+- name: Application User Setup and Download App Files
+  import_tasks: app-user-setup.yml
 
 - name: Install NodejS Dependencies.
   community.general.npm:
     path: /home/roboshop/{{COMPONENT}}
   become_user: roboshop
 
-- name: Update {{COMPONENT}} SystemD file
-  ansible.builtin.template:
-    src: systemd.service
-    dest: /etc/systemd/system/{{COMPONENT}}.service
+- name: Setup Service and Start Service
+  import_tasks: systemd.yml
 
-- name: Start {{COMPONENT}} Service
-  ansible.builtin.systemd:
-    name: "{{COMPONENT}}"
-    state: restarted
-    enabled: yes
-    daemon_reload: yes

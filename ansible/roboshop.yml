@@ -11,6 +11,7 @@
   tags: MONGODB
   roles:
     - mongodb
+
 - name: Catalogue setup
   hosts: CATALOGUE
   become: yes

@@ -1,0 +1,17 @@
+- name: Install Maven
+  ansible.builtin.yum:
+    name:
+      - maven
+    state: installed
+
+- name: Application User Setup and Download App Files
+  import_tasks: app-user-setup.yml
+
+- name: Compile Code
+  ansible.builtin.shell: mvn clean package && mv target/{{COMPONENT}}-1.0.jar {{COMPONENT}}.jar
+  args:
+    chdir: /home/roboshop/{{COMPONENT}}
+  become_user: roboshop
+
+- name: Setup Service and Start Service
+  import_tasks: systemd.yml
